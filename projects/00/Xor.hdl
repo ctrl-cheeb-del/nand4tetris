@@ -4,6 +4,7 @@
 
 /**
  *  Exclusive-or gate: out = !(a == b).
+ tesiting if i acan commit
  */
 
 CHIP Xor {

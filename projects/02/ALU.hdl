@@ -63,8 +63,7 @@ CHIP ALU {
     Or(a=oruno, b=ordos, out=orout);
         
     Not(in=orout, out=zr);
-    And16(a[0..15]=true, b=otherout, out[15]=ng);
-    
+    And16(a[0..15]=true, b=otherout, out[15]=ng);   
 }
         
         

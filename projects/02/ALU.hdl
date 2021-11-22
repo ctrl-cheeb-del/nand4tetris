@@ -42,26 +42,30 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-        Mux16(a=x, b[0..15]=false, sel=zr, out=zrx);
-        Not16(in=zrx, out=notx);
-        Mux16(a=zrx, b=notx, sel=nx, out=znx);
 
-        Mux16(a=y, b[0..15]=false, sel=zr, out=zry);
-        Not16(in=zry, out=noty);
-        Mux16(a=zry, b=noty, sel=ny, out=zny);
+    Mux16(a=x, b[0..15]=false, sel=zx, out=zrx);
+    Not16(in=zrx, out=notx);
+    Mux16(a=zrx, b=notx, sel=nx, out=znx);
 
-        And16(a=znx, b=zny, out=xny);
-        Add16(a=znx, b=zny, out=xpy);
-        Mux16(a=xny, b=xpy, sel=f, out=fout);
+    Mux16(a=y, b[0..15]=false, sel=zy, out=zry);
+    Not16(in=zry, out=noty);
+    Mux16(a=zry, b=noty, sel=ny, out=zny);
 
-        Not16(in=fout, out=notfout);
-        Mux16(a=fout, b=notfout, sel=no, out[0..7]=nfout1, out[8..15]=nfout2, out=out);
+    And16(a=znx, b=zny, out=xny);
+    Add16(a=znx, b=zny, out=xpy);
+    Mux16(a=xny, b=xpy, sel=f, out=fout);
 
-        Or8Way(in=nfout1, out=oruno);
-        Or8Way(in=nfout2, out=ordos);
-        Or(a=oruno, b=ordos, out=orout);
+    Not16(in=fout, out=notfout);
+    Mux16(a=fout, b=notfout, sel=no, out[0..7]=nfout1, out[8..15]=nfout2, out=otherout, out=out);
+
+    Or8Way(in=nfout1, out=oruno);
+    Or8Way(in=nfout2, out=ordos);
+    Or(a=oruno, b=ordos, out=orout);
         
-        Not(in=orout, out=zr);
+    Not(in=orout, out=zr);
+    And16(a[0..15]=true, b=otherout, out[15]=ng);
+    
+}
         
         
 

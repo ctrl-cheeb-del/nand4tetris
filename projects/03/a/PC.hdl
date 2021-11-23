@@ -20,5 +20,5 @@ CHIP PC {
     Mux16(a=biginput, b=incput, sel=inc, out=nowinc);
     Mux16(a=nowinc, b=in, sel=load, out=tempout);
     Mux16(a=tempout, b[0..15]=false, sel=reset, out=ratio);
-    Register(in=ratio, load=true, out=out, out=biginput);
+    Register(in=ratio, load=true, out=out, out=biginput);   
 }
